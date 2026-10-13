@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo Matemático: Múltiplos, Divisores, m.c.m. y m.c.d.</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Outfits & Comic Neue for child-friendly design -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f0fdf4;
+        }
+        .font-fun {
+            font-family: 'Fredoka', cursive;
+        }
+        .tab-btn.active {
+            background-color: #4f46e5;
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39);
+        }
+        .bounce-short {
+            animation: bounce 0.6s ease infinite alternate;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-6px); }
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 bg-slate-50">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white p-4 md:p-6 shadow-lg relative overflow-hidden">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between relative z-10 gap-4">
+            <div class="flex items-center gap-3 text-center md:text-left">
+                <div class="bg-white/20 p-3 rounded-2xl backdrop-blur-md">
+                    <i data-lucide="calculator" class="w-10 h-10 text-yellow-300"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-extrabold font-fun tracking-wide">Mundo Matemático 🚀</h1>
+                    <p class="text-indigo-100 text-sm md:text-base">Múltiplos, Divisores, m.c.m. y m.c.d. para 6º de Primaria</p>
+                </div>
+            </div>
+            <!-- Stars Counter -->
+            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 border border-white/30">
+                <i data-lucide="star" class="w-6 h-6 text-yellow-300 fill-yellow-300 bounce-short"></i>
+                <span class="font-bold text-lg">Puntos: <span id="total-score" class="text-yellow-300 font-extrabold">0</span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="max-w-6xl mx-auto w-full px-4 mt-6">
+        <div class="flex flex-wrap gap-2 md:gap-3 justify-center bg-white p-2 rounded-2xl shadow-sm border border-slate-200">
+            <button onclick="switchTab('multiples-divisors')" id="tab-multiples-divisors" class="tab-btn active flex items-center gap-2 px-4 py-3 rounded-xl font-bold transition-all text-sm md:text-base text-slate-600 hover:bg-indigo-50">
+                <i data-lucide="grid"></i> Múltiplos y Divisores
+            </button>
+            <button onclick="switchTab('divisibility')" id="tab-divisibility" class="tab-btn flex items-center gap-2 px-4 py-3 rounded-xl font-bold transition-all text-sm md:text-base text-slate-600 hover:bg-indigo-50">
+                <i data-lucide="check-square"></i> Criterios de Divisibilidad
+            </button>
+            <button onclick="switchTab('mcm')" id="tab-mcm" class="tab-btn flex items-center gap-2 px-4 py-3 rounded-xl font-bold transition-all text-sm md:text-base text-slate-600 hover:bg-indigo-50">
+                <i data-lucide="trending-up"></i> m.c.m.
+            </button>
+            <button onclick="switchTab('mcd')" id="tab-mcd" class="tab-btn flex items-center gap-2 px-4 py-3 rounded-xl font-bold transition-all text-sm md:text-base text-slate-600 hover:bg-indigo-50">
+                <i data-lucide="pie-chart"></i> m.c.d.
+            </button>
+            <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn flex items-center gap-2 px-4 py-3 rounded-xl font-bold transition-all text-sm md:text-base text-slate-600 hover:bg-indigo-50">
+                <i data-lucide="trophy" class="text-amber-500"></i> ¡Ponte a Prueba!
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto w-full px-4 my-6 flex-grow">
+
+        <!-- TAB 1: MULTIPLOS Y DIVISORES -->
+        <section id="sec-multiples-divisors" class="tab-content space-y-6">
+            
+            <!-- Explanation Card -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Multiples Intro -->
+                <div class="bg-white p-6 rounded-3xl border-2 border-indigo-100 card-shadow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-indigo-100 p-3 rounded-2xl text-indigo-600">
+                            <i data-lucide="zap" class="w-6 h-6"></i>
+                        </span>
+                        <h2 class="text-xl font-bold font-fun text-indigo-900">¿Qué es un MÚLTIPLO?</h2>
+                    </div>
+                    <p class="text-slate-600 leading-relaxed mb-4">
+                        Los <strong>múltiplos</strong> de un número son los resultados de multiplicarlo por los números naturales (0, 1, 2, 3, 4...). ¡Son como dar saltos en la recta numérica!
+                    </p>
+                    <div class="bg-indigo-50 p-4 rounded-2xl border border-indigo-100 text-sm">
+                        <p class="font-bold text-indigo-800 mb-1">💡 Ejemplo (Múltiplos de 3):</p>
+                        <p class="text-indigo-900">3×1=<strong>3</strong>, 3×2=<strong>6</strong>, 3×3=<strong>9</strong>, 3×4=<strong>12</strong>...</p>
+                        <p class="text-xs text-indigo-600 mt-2">¡Hay infinitos múltiplos!</p>
+                    </div>
+                </div>
+
+                <!-- Divisors Intro -->
+                <div class="bg-white p-6 rounded-3xl border-2 border-emerald-100 card-shadow">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-emerald-100 p-3 rounded-2xl text-emerald-600">
+                            <i data-lucide="scissors" class="w-6 h-6"></i>
+                        </span>
+                        <h2 class="text-xl font-bold font-fun text-emerald-900">¿Qué es un DIVISOR?</h2>
+                    </div>
+                    <p class="text-slate-600 leading-relaxed mb-4">
+                        Los <strong>divisores</strong> son los números que lo dividen de forma <strong>exacta</strong> (sin que sobre nada, resto = 0). ¡Son los repartos perfectos!
+                    </p>
+                    <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 text-sm">
+                        <p class="font-bold text-emerald-800 mb-1">💡 Ejemplo (Divisores de 12):</p>
+                        <p class="text-emerald-900">12 ÷ 3 = 4 (resto 0) → <strong>3</strong> es divisor.</p>
+                        <p class="text-emerald-900">12 ÷ 5 = 2 (resto 2) → <strong>5 NO</strong> es divisor.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculators Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Multiples Calculator -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 card-shadow">
+                    <h3 class="text-lg font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                        <i data-lucide="calculator" class="text-indigo-600"></i> Explorador de Múltiplos
+                    </h3>
+                    <div class="flex gap-3 mb-4">
+                        <input type="number" id="num-multiples" value="5" min="1" max="100" class="w-full px-4 py-3 border-2 border-indigo-200 rounded-xl focus:outline-none focus:border-indigo-500 font-bold text-lg text-center">
+                        <button onclick="calculateMultiples()" class="bg-indigo-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-indigo-700 transition">Calcular</button>
+                    </div>
+                    <div id="multiples-result" class="space-y-3">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Divisors Calculator -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 card-shadow">
+                    <h3 class="text-lg font-bold text-emerald-900 mb-4 flex items-center gap-2">
+                        <i data-lucide="search" class="text-emerald-600"></i> Explorador de Divisores
+                    </h3>
+                    <div class="flex gap-3 mb-4">
+                        <input type="number" id="num-divisors" value="12" min="1" max="500" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-xl focus:outline-none focus:border-emerald-500 font-bold text-lg text-center">
+                        <button onclick="calculateDivisors()" class="bg-emerald-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-emerald-700 transition">Calcular</button>
+                    </div>
+                    <div id="divisors-result" class="space-y-3">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB NUEVA: CRITERIOS DE DIVISIBILIDAD -->
+        <section id="sec-divisibility" class="tab-content hidden space-y-6">
+            <!-- Theory Rules Grid -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border-2 border-teal-100 card-shadow space-y-6">
+                <div class="flex items-center gap-3">
+                    <span class="bg-teal-100 p-3 rounded-2xl text-teal-600">
+                        <i data-lucide="list-checks" class="w-8 h-8"></i>
+                    </span>
+                    <div>
+                        <h2 class="text-2xl font-bold font-fun text-teal-900">Criterios de Divisibilidad</h2>
+                        <p class="text-slate-500 text-sm">Reglas rápidas para saber si un número se puede dividir de forma exacta por otro sin hacer la división.</p>
+                    </div>
+                </div>
+
+                <!-- Rules Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Regla del 2 -->
+                    <div class="bg-blue-50/70 p-4 rounded-2xl border border-blue-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-blue-600 text-white font-black px-3 py-1 rounded-xl text-lg font-fun">÷ 2</span>
+                            <span class="text-xs font-bold text-blue-700 bg-blue-100 px-2.5 py-1 rounded-full">Cifra par</span>
+                        </div>
+                        <p class="text-sm text-slate-700 font-medium">Un número es divisible por <strong>2</strong> si termina en <strong>0, 2, 4, 6 u 8</strong> (cifra par).</p>
+                        <p class="text-xs text-blue-800 bg-blue-100/60 p-2 rounded-lg font-mono">Ej: 12<strong>4</strong>, 53<strong>0</strong>, 8<strong>8</strong></p>
+                    </div>
+
+                    <!-- Regla del 3 -->
+                    <div class="bg-purple-50/70 p-4 rounded-2xl border border-purple-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-purple-600 text-white font-black px-3 py-1 rounded-xl text-lg font-fun">÷ 3</span>
+                            <span class="text-xs font-bold text-purple-700 bg-purple-100 px-2.5 py-1 rounded-full">Suma de dígitos</span>
+                        </div>
+                        <p class="text-sm text-slate-700 font-medium">Un número es divisible por <strong>3</strong> si la <strong>suma de sus cifras</strong> es un múltiplo de 3.</p>
+                        <p class="text-xs text-purple-800 bg-purple-100/60 p-2 rounded-lg font-mono">Ej: 123 ➔ 1+2+3 = 6 (6 ÷ 3 = 2)</p>
+                    </div>
+
+                    <!-- Regla del 4 -->
+                    <div class="bg-indigo-50/70 p-4 rounded-2xl border border-indigo-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-indigo-600 text-white font-black px-3 py-1 rounded-xl text-lg font-fun">÷ 4</span>
+                            <span class="text-xs font-bold text-indigo-700 bg-indigo-100 px-2.5 py-1 rounded-full">Últimas 2 cifras</span>
+                        </div>
+                        <p class="text-sm text-slate-700 font-medium">Un número es divisible por <strong>4</strong> si sus <strong>dos últimas cifras</strong> son 00 o múltiplo de 4.</p>
+                        <p class="text-xs text-indigo-800 bg-indigo-100/60 p-2 rounded-lg font-mono">Ej: 3<strong>16</strong> (16 ÷ 4 = 4), 5<strong>00</strong></p>
+                    </div>
+
+                    <!-- Regla del 5 -->
+                    <div class="bg-emerald-50/70 p-4 rounded-2xl border border-emerald-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-emerald-600 text-white font-black px-3 py-1 rounded-xl text-lg font-fun">÷ 5</span>
+                            <span class="text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-full">Termina en 0 o 5</span>
+                        </div>
+                        <p class="text-sm text-slate-700 font-medium">Un número es divisible por <strong>5</strong> si su última cifra es <strong>0 o 5</strong>.</p>
+                        <p class="text-xs text-emerald-800 bg-emerald-100/60 p-2 rounded-lg font-mono">Ej: 14<strong>5</strong>, 29<strong>0</strong></p>
+                    </div>
+
+                    <!-- Regla del 9 -->
+                    <div class="bg-amber-50/70 p-4 rounded-2xl border border-amber-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-amber-600 text-white font-black px-3 py-1 rounded-xl text-lg font-fun">÷ 9</span>
+                            <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full">Suma de dígitos</span>
+                        </div>
+                        <p class="text-sm text-slate-700 font-medium">Un número es divisible por <strong>9</strong> si la <strong>suma de sus cifras</strong> es un múltiplo de 9.</p>
+                        <p class="text-xs text-amber-800 bg-amber-100/60 p-2 rounded-lg font-mono">Ej: 729 ➔ 7+2+9 = 18 (18 ÷ 9 = 2)</p>
+                    </div>
+
+                    <!-- Regla del 10 -->
+                    <div class="bg-rose-50/70 p-4 rounded-2xl border border-rose-200 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-rose-600 text-white font-black px-3 py-1 rounded-xl text-lg font-fun">÷ 10</span>
+                            <span class="text-xs font-bold text-rose-700 bg-rose-100 px-2.5 py-1 rounded-full">Termina en 0</span>
+                        </div>
+                        <p class="text-sm text-slate-700 font-medium">Un número es divisible por <strong>10</strong> si su última cifra es un <strong>0</strong>.</p>
+                        <p class="text-xs text-rose-800 bg-rose-100/60 p-2 rounded-lg font-mono">Ej: 80, 45<strong>0</strong>, 120<strong>0</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Divisibility Checker -->
+            <div class="bg-white p-6 md:p-8 rounded-3xl border-2 border-teal-200 card-shadow">
+                <h3 class="text-xl font-bold font-fun text-teal-900 mb-2 flex items-center gap-2">
+                    <i data-lucide="calculator" class="text-teal-600"></i> Comprobador Interactivo de Divisibilidad
+                </h3>
+                <p class="text-sm text-slate-500 mb-6">Escribe cualquier número y descubre qué reglas de divisibilidad cumple automáticamente:</p>
+
+                <div class="flex flex-wrap sm:flex-nowrap gap-3 mb-6">
+                    <input type="number" id="num-divisibility-check" value="180" min="1" max="999999" oninput="checkDivisibilityRules()" class="w-full px-4 py-3 border-2 border-teal-200 rounded-xl focus:outline-none focus:border-teal-500 font-bold text-xl text-center text-teal-900">
+                    <button onclick="checkDivisibilityRules()" class="w-full sm:w-auto bg-teal-600 text-white font-bold px-8 py-3 rounded-xl hover:bg-teal-700 transition shadow-md">
+                        Comprobar
+                    </button>
+                </div>
+
+                <!-- Live Results -->
+                <div id="divisibility-check-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: MCM -->
+        <section id="sec-mcm" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-3xl border-2 border-purple-100 card-shadow">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-purple-100 p-3 rounded-2xl text-purple-600">
+                        <i data-lucide="trending-up" class="w-8 h-8"></i>
+                    </span>
+                    <div>
+                        <h2 class="text-2xl font-bold font-fun text-purple-900">Mínimo Común Múltiplo (m.c.m.)</h2>
+                        <p class="text-slate-500 text-sm">El múltiplo más pequeño que tienen en común dos o más números.</p>
+                    </div>
+                </div>
+                
+                <!-- Theory explanation -->
+                <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100 text-slate-700 mb-6 space-y-2">
+                    <p class="font-semibold text-purple-900">¿Cómo se calcula paso a paso?</p>
+                    <ol class="list-decimal list-inside space-y-1 text-sm md:text-base">
+                        <li>Escribimos la lista de los primeros múltiplos de cada número.</li>
+                        <li>Buscamos cuáles son los múltiplos que se <strong>repiten</strong> (comunes).</li>
+                        <li>Elegimos el <strong>menor</strong> de todos ellos (diferente de 0).</li>
+                    </ol>
+                </div>
+
+                <!-- Input Controls -->
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <label class="font-bold text-slate-700">Calcula el m.c.m. de:</label>
+                        <input type="number" id="mcm-n1" value="4" min="1" max="50" class="w-20 px-3 py-2 border-2 border-purple-200 rounded-xl text-center font-bold">
+                        <span class="font-bold text-slate-400">y</span>
+                        <input type="number" id="mcm-n2" value="6" min="1" max="50" class="w-20 px-3 py-2 border-2 border-purple-200 rounded-xl text-center font-bold">
+                        <span class="font-bold text-slate-400">y (opcional)</span>
+                        <input type="number" id="mcm-n3" value="" placeholder="Ej: 8" min="1" max="50" class="w-24 px-3 py-2 border-2 border-purple-200 rounded-xl text-center font-bold">
+                        
+                        <button onclick="calculateMCM()" class="bg-purple-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-purple-700 transition shadow-md">
+                            ¡Calcular m.c.m.!
+                        </button>
+                    </div>
+
+                    <!-- Output Area -->
+                    <div id="mcm-result" class="mt-6 space-y-4">
+                        <!-- Dynamic Content -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: MCD -->
+        <section id="sec-mcd" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-3xl border-2 border-amber-100 card-shadow">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-amber-100 p-3 rounded-2xl text-amber-600">
+                        <i data-lucide="pie-chart" class="w-8 h-8"></i>
+                    </span>
+                    <div>
+                        <h2 class="text-2xl font-bold font-fun text-amber-900">Máximo Común Divisor (m.c.d.)</h2>
+                        <p class="text-slate-500 text-sm">El divisor más grande que tienen en común dos o más números.</p>
+                    </div>
+                </div>
+                
+                <!-- Theory explanation -->
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 text-slate-700 mb-6 space-y-2">
+                    <p class="font-semibold text-amber-900">¿Cómo se calcula paso a paso?</p>
+                    <ol class="list-decimal list-inside space-y-1 text-sm md:text-base">
+                        <li>Escribimos <strong>todos</strong> los divisores de cada número.</li>
+                        <li>Buscamos qué divisores están en todas las listas (comunes).</li>
+                        <li>Elegimos el <strong>mayor</strong> de todos ellos.</li>
+                    </ol>
+                </div>
+
+                <!-- Input Controls -->
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <label class="font-bold text-slate-700">Calcula el m.c.d. de:</label>
+                        <input type="number" id="mcd-n1" value="12" min="1" max="100" class="w-20 px-3 py-2 border-2 border-amber-200 rounded-xl text-center font-bold">
+                        <span class="font-bold text-slate-400">y</span>
+                        <input type="number" id="mcd-n2" value="18" min="1" max="100" class="w-20 px-3 py-2 border-2 border-amber-200 rounded-xl text-center font-bold">
+                        <span class="font-bold text-slate-400">y (opcional)</span>
+                        <input type="number" id="mcd-n3" value="" placeholder="Ej: 24" min="1" max="100" class="w-24 px-3 py-2 border-2 border-amber-200 rounded-xl text-center font-bold">
+                        
+                        <button onclick="calculateMCD()" class="bg-amber-500 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-amber-600 transition shadow-md">
+                            ¡Calcular m.c.d.!
+                        </button>
+                    </div>
+
+                    <!-- Output Area -->
+                    <div id="mcd-result" class="mt-6 space-y-4">
+                        <!-- Dynamic Content -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: QUIZ -->
+        <section id="sec-quiz" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 md:p-8 rounded-3xl border-2 border-indigo-100 card-shadow max-w-2xl mx-auto">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-indigo-100 p-3 rounded-2xl text-indigo-600">
+                            <i data-lucide="gamepad-2" class="w-8 h-8"></i>
+                        </span>
+                        <div>
+                            <h2 class="text-2xl font-bold font-fun text-indigo-900">¡Reto Matemático!</h2>
+                            <p class="text-xs md:text-sm text-slate-500">Demuestra lo que has aprendido sobre múltiplos y divisores.</p>
+                        </div>
+                    </div>
+                    <span id="quiz-badge" class="bg-indigo-100 text-indigo-700 font-bold px-3 py-1 rounded-full text-xs">Pregunta <span id="quiz-current">1</span>/10</span>
+                </div>
+
+                <!-- Question Box -->
+                <div id="quiz-card" class="space-y-6">
+                    <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 text-center">
+                        <h3 id="quiz-question" class="text-xl md:text-2xl font-bold text-indigo-950 mb-2">Cargando pregunta...</h3>
+                        <p id="quiz-hint" class="text-sm text-slate-500 italic">Lee atentamente antes de responder.</p>
+                    </div>
+
+                    <!-- Options Grid -->
+                    <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <!-- Dynamic Buttons -->
+                    </div>
+
+                    <!-- Feedback Area -->
+                    <div id="quiz-feedback" class="hidden p-4 rounded-2xl text-center font-bold"></div>
+
+                    <!-- Next Button -->
+                    <div class="flex justify-end">
+                        <button id="quiz-next-btn" onclick="nextQuestion()" class="hidden bg-indigo-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-indigo-700 transition flex items-center gap-2">
+                            Siguiente Pregunta <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Final Score Box (hidden initially) -->
+                <div id="quiz-summary" class="hidden text-center space-y-6 py-6">
+                    <div class="inline-block bg-yellow-100 p-4 rounded-full text-yellow-600 mb-2">
+                        <i data-lucide="award" class="w-16 h-16"></i>
+                    </div>
+                    <h3 class="text-3xl font-extrabold font-fun text-slate-800">¡Reto Completado!</h3>
+                    <p class="text-lg text-slate-600">Has conseguido <span id="final-score" class="font-bold text-indigo-600">0</span> de 10 respuestas correctas.</p>
+                    <p id="final-message" class="text-sm text-slate-500 font-medium"></p>
+                    <button onclick="restartQuiz()" class="bg-indigo-600 text-white font-bold px-8 py-3 rounded-xl hover:bg-indigo-700 transition shadow-lg">
+                        ¡Jugar de Nuevo! (Nuevas preguntas)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-100 border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        <p>Mundo Matemático • Diseñado para alumnos de 6º de Primaria</p>
+    </footer>
+
+    <script>
+        // State variables
+        let score = 0;
+        let correctAnswersCount = 0;
+        let currentQuizIndex = 0;
+        let questions = [];
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+
+            // Re-render icons if needed
+            lucide.createIcons();
+        }
+
+        // --- TAB DIVISIBILITY LOGIC ---
+        function checkDivisibilityRules() {
+            const inputVal = document.getElementById('num-divisibility-check').value;
+            const num = parseInt(inputVal);
+            const resultsDiv = document.getElementById('divisibility-check-results');
+
+            if (!num || num < 1) {
+                resultsDiv.innerHTML = `<p class="text-slate-400 col-span-full text-center py-4">Introduce un número entero mayor que 0.</p>`;
+                return;
+            }
+
+            const strNum = num.toString();
+            const digits = strNum.split('').map(Number);
+            const sumDigits = digits.reduce((a, b) => a + b, 0);
+            const lastDigit = digits[digits.length - 1];
+            const lastTwoDigits = num >= 10 ? parseInt(strNum.slice(-2)) : num;
+
+            const rules = [
+                {
+                    divisor: 2,
+                    isDivisible: lastDigit % 2 === 0,
+                    reason: lastDigit % 2 === 0 
+                        ? `La última cifra es ${lastDigit} (es cifra par).` 
+                        : `La última cifra es ${lastDigit} (NO es cifra par).`
+                },
+                {
+                    divisor: 3,
+                    isDivisible: sumDigits % 3 === 0,
+                    reason: `La suma de sus cifras es ${digits.join('+')} = ${sumDigits} (${sumDigits % 3 === 0 ? `es múltiplo de 3: 3 × ${sumDigits/3}` : `NO es múltiplo de 3`}).`
+                },
+                {
+                    divisor: 4,
+                    isDivisible: lastTwoDigits % 4 === 0,
+                    reason: `Las últimas dos cifras (${lastTwoDigits}) ${lastTwoDigits % 4 === 0 ? `forman un múltiplo de 4 (${lastTwoDigits} ÷ 4 = ${lastTwoDigits/4})` : `NO forman un múltiplo de 4`}.`
+                },
+                {
+                    divisor: 5,
+                    isDivisible: lastDigit === 0 || lastDigit === 5,
+                    reason: lastDigit === 0 || lastDigit === 5 
+                        ? `La última cifra es ${lastDigit}.` 
+                        : `La última cifra es ${lastDigit} (debería ser 0 o 5).`
+                },
+                {
+                    divisor: 9,
+                    isDivisible: sumDigits % 9 === 0,
+                    reason: `La suma de sus cifras es ${digits.join('+')} = ${sumDigits} (${sumDigits % 9 === 0 ? `es múltiplo de 9: 9 × ${sumDigits/9}` : `NO es múltiplo de 9`}).`
+                },
+                {
+                    divisor: 10,
+                    isDivisible: lastDigit === 0,
+                    reason: lastDigit === 0 
+                        ? `La última cifra es 0.` 
+                        : `La última cifra es ${lastDigit} (debería ser 0).`
+                }
+            ];
+
+            resultsDiv.innerHTML = rules.map(r => `
+                <div class="p-4 rounded-2xl border-2 transition ${r.isDivisible ? 'bg-emerald-50/80 border-emerald-300 text-emerald-950' : 'bg-rose-50/50 border-rose-200 text-slate-600'}">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-lg">¿Divisible por <span class="font-extrabold text-xl">${r.divisor}</span>?</span>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1 ${r.isDivisible ? 'bg-emerald-200 text-emerald-900' : 'bg-rose-200 text-rose-900'}">
+                            <i data-lucide="${r.isDivisible ? 'check-circle' : 'x-circle'}" class="w-4 h-4"></i>
+                            ${r.isDivisible ? 'SÍ' : 'NO'}
+                        </span>
+                    </div>
+                    <p class="text-xs leading-relaxed opacity-90">${r.reason}</p>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        // --- TAB 1 LOGIC ---
+        function calculateMultiples() {
+            const num = parseInt(document.getElementById('num-multiples').value) || 1;
+            const multiples = [];
+            for (let i = 1; i <= 12; i++) {
+                multiples.push(num * i);
+            }
+
+            const resultDiv = document.getElementById('multiples-result');
+            resultDiv.innerHTML = `
+                <p class="text-sm text-slate-600 font-semibold">Primeros 12 múltiplos de <span class="text-indigo-600 font-bold">${num}</span>:</p>
+                <div class="flex flex-wrap gap-2">
+                    ${multiples.map((m, idx) => `
+                        <span class="bg-indigo-50 border border-indigo-200 text-indigo-800 font-bold px-3 py-1.5 rounded-xl text-sm shadow-sm">
+                            ${num} × ${idx + 1} = <strong class="text-indigo-600">${m}</strong>
+                        </span>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function calculateDivisors() {
+            const num = parseInt(document.getElementById('num-divisors').value) || 1;
+            const divisors = [];
+            for (let i = 1; i <= num; i++) {
+                if (num % i === 0) {
+                    divisors.push(i);
+                }
+            }
+
+            const resultDiv = document.getElementById('divisors-result');
+            resultDiv.innerHTML = `
+                <p class="text-sm text-slate-600 font-semibold">Divisores exactos de <span class="text-emerald-600 font-bold">${num}</span> (Total: ${divisors.length}):</p>
+                <div class="flex flex-wrap gap-2">
+                    ${divisors.map(d => `
+                        <span class="bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold px-3.5 py-1.5 rounded-xl text-sm shadow-sm flex items-center gap-1">
+                            <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> ${d}
+                        </span>
+                    `).join('')}
+                </div>
+                <p class="text-xs text-slate-400 mt-2">Explicación: ${num} se puede dividir exactamente entre ${divisors.join(', ')} sin dejar resto.</p>
+            `;
+            lucide.createIcons();
+        }
+
+        // --- TAB 2 LOGIC (m.c.m.) ---
+        function gcd(a, b) {
+            return b === 0 ? a : gcd(b, a % b);
+        }
+
+        function lcm(a, b) {
+            return (a * b) / gcd(a, b);
+        }
+
+        function calculateMCM() {
+            const n1 = parseInt(document.getElementById('mcm-n1').value);
+            const n2 = parseInt(document.getElementById('mcm-n2').value);
+            const n3Val = document.getElementById('mcm-n3').value;
+            const n3 = n3Val ? parseInt(n3Val) : null;
+
+            if (!n1 || !n2 || n1 < 1 || n2 < 1) return;
+
+            let resultMCM = lcm(n1, n2);
+            if (n3) resultMCM = lcm(resultMCM, n3);
+
+            // Generate multiples list for visualization
+            const limit = Math.min(resultMCM * 2, 100);
+            const mult1 = Array.from({length: Math.floor(limit / n1)}, (_, i) => n1 * (i + 1));
+            const mult2 = Array.from({length: Math.floor(limit / n2)}, (_, i) => n2 * (i + 1));
+            const mult3 = n3 ? Array.from({length: Math.floor(limit / n3)}, (_, i) => n3 * (i + 1)) : null;
+
+            const resDiv = document.getElementById('mcm-result');
+            resDiv.innerHTML = `
+                <div class="bg-purple-100/60 p-4 rounded-2xl border border-purple-200">
+                    <p class="text-sm text-purple-900 font-bold">Múltiplos de ${n1}:</p>
+                    <p class="text-sm font-mono text-purple-800 break-words">${mult1.map(m => m === resultMCM ? `<mark class="bg-yellow-300 font-bold px-1 rounded">${m}</mark>` : m).join(', ')}...</p>
+                </div>
+                <div class="bg-purple-100/60 p-4 rounded-2xl border border-purple-200">
+                    <p class="text-sm text-purple-900 font-bold">Múltiplos de ${n2}:</p>
+                    <p class="text-sm font-mono text-purple-800 break-words">${mult2.map(m => m === resultMCM ? `<mark class="bg-yellow-300 font-bold px-1 rounded">${m}</mark>` : m).join(', ')}...</p>
+                </div>
+                ${n3 ? `
+                <div class="bg-purple-100/60 p-4 rounded-2xl border border-purple-200">
+                    <p class="text-sm text-purple-900 font-bold">Múltiplos de ${n3}:</p>
+                    <p class="text-sm font-mono text-purple-800 break-words">${mult3.map(m => m === resultMCM ? `<mark class="bg-yellow-300 font-bold px-1 rounded">${m}</mark>` : m).join(', ')}...</p>
+                </div>
+                ` : ''}
+
+                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-5 rounded-2xl text-center shadow-lg">
+                    <p class="text-sm font-medium uppercase tracking-wider text-purple-200">Resultado final</p>
+                    <p class="text-2xl md:text-3xl font-extrabold mt-1">m.c.m. = <span class="text-yellow-300">${resultMCM}</span></p>
+                    <p class="text-xs text-purple-100 mt-1">Es el primer múltiplo que comparten todos los números.</p>
+                </div>
+            `;
+        }
+
+        // --- TAB 3 LOGIC (m.c.d.) ---
+        function getDivisorsList(n) {
+            const list = [];
+            for (let i = 1; i <= n; i++) {
+                if (n % i === 0) list.push(i);
+            }
+            return list;
+        }
+
+        function calculateMCD() {
+            const n1 = parseInt(document.getElementById('mcd-n1').value);
+            const n2 = parseInt(document.getElementById('mcd-n2').value);
+            const n3Val = document.getElementById('mcd-n3').value;
+            const n3 = n3Val ? parseInt(n3Val) : null;
+
+            if (!n1 || !n2 || n1 < 1 || n2 < 1) return;
+
+            const div1 = getDivisorsList(n1);
+            const div2 = getDivisorsList(n2);
+            const div3 = n3 ? getDivisorsList(n3) : null;
+
+            let commonDivisors = div1.filter(d => div2.includes(d));
+            if (div3) {
+                commonDivisors = commonDivisors.filter(d => div3.includes(d));
+            }
+
+            const resultMCD = Math.max(...commonDivisors);
+
+            const resDiv = document.getElementById('mcd-result');
+            resDiv.innerHTML = `
+                <div class="bg-amber-100/60 p-4 rounded-2xl border border-amber-200">
+                    <p class="text-sm text-amber-900 font-bold">Divisores de ${n1}:</p>
+                    <p class="text-sm font-mono text-amber-800 break-words">${div1.map(d => d === resultMCD ? `<mark class="bg-yellow-300 font-bold px-1 rounded">${d}</mark>` : d).join(', ')}</p>
+                </div>
+                <div class="bg-amber-100/60 p-4 rounded-2xl border border-amber-200">
+                    <p class="text-sm text-amber-900 font-bold">Divisores de ${n2}:</p>
+                    <p class="text-sm font-mono text-amber-800 break-words">${div2.map(d => d === resultMCD ? `<mark class="bg-yellow-300 font-bold px-1 rounded">${d}</mark>` : d).join(', ')}</p>
+                </div>
+                ${n3 ? `
+                <div class="bg-amber-100/60 p-4 rounded-2xl border border-amber-200">
+                    <p class="text-sm text-amber-900 font-bold">Divisores de ${n3}:</p>
+                    <p class="text-sm font-mono text-amber-800 break-words">${div3.map(d => d === resultMCD ? `<mark class="bg-yellow-300 font-bold px-1 rounded">${d}</mark>` : d).join(', ')}</p>
+                </div>
+                ` : ''}
+
+                <div class="bg-amber-100 border-2 border-amber-300 p-3 rounded-xl">
+                    <p class="text-xs font-bold text-amber-800">Divisores comunes compartidos:</p>
+                    <p class="text-sm font-bold text-amber-900">${commonDivisors.join(', ')}</p>
+                </div>
+
+                <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white p-5 rounded-2xl text-center shadow-lg">
+                    <p class="text-sm font-medium uppercase tracking-wider text-amber-100">Resultado final</p>
+                    <p class="text-2xl md:text-3xl font-extrabold mt-1">m.c.d. = <span class="text-yellow-200">${resultMCD}</span></p>
+                    <p class="text-xs text-amber-100 mt-1">Es el divisor más grande común entre ellos.</p>
+                </div>
+            `;
+        }
+
+        // --- TAB 4 LOGIC (QUIZ GAME) ---
+        const questionPool = [
+            {
+                q: "¿Cuál de estos números es múltiplo de 5?",
+                options: ["12", "25", "18", "31"],
+                correct: 1,
+                hint: "Recuerda que los múltiplos de 5 acaban en 0 o en 5."
+            },
+            {
+                q: "¿Cuáles son TODOS los divisores de 6?",
+                options: ["1, 2, 3, 6", "2, 3", "1, 6", "1, 2, 3, 4, 6"],
+                correct: 0,
+                hint: "Busca todos los números entre los que se puede dividir el 6 sin dejar resto."
+            },
+            {
+                q: "¿Cuál es el m.c.m. de 4 y 6?",
+                options: ["2", "24", "12", "18"],
+                correct: 2,
+                hint: "Múltiplos de 4: 4, 8, 12... Múltiplos de 6: 6, 12..."
+            },
+            {
+                q: "¿Cuál es el m.c.d. de 12 y 18?",
+                options: ["6", "3", "2", "36"],
+                correct: 0,
+                hint: "El divisor más grande que divide exactamente a 12 y a 18."
+            },
+            {
+                q: "¿El número 1 es divisor de todos los números?",
+                options: ["Sí, de todos", "No, solo de los pares", "No, solo de sí mismo", "No, solo de los impares"],
+                correct: 0,
+                hint: "Cualquier número dividido entre 1 da como resultado él mismo."
+            },
+            {
+                q: "¿Cuál es el m.c.m. de 3 y 5?",
+                options: ["8", "15", "1", "30"],
+                correct: 1,
+                hint: "Como 3 y 5 no comparten divisores, multiplica 3 × 5."
+            },
+            {
+                q: "¿Es 14 un divisor de 7?",
+                options: ["Sí", "No, es al revés (7 es divisor de 14)", "Sí, porque 14÷2=7", "Solo los días pares"],
+                correct: 1,
+                hint: "Un divisor nunca puede ser mayor que el propio número."
+            },
+            {
+                q: "¿Cuál de estos números es PRIMO?",
+                options: ["9", "13", "15", "21"],
+                correct: 1,
+                hint: "Un número primo solo tiene 2 divisores: el 1 y él mismo."
+            },
+            {
+                q: "Dos luces parpadean: una cada 4s y otra cada 6s. ¿Cada cuántos segundos coinciden?",
+                options: ["10 s", "24 s", "12 s", "2 s"],
+                correct: 2,
+                hint: "Necesitas calcular el mínimo común múltiplo (m.c.m.) de 4 y 6."
+            },
+            {
+                q: "Queremos hacer bolsas iguales con 12 caramelos y 18 chocolates sin que sobre nada. ¿Cuál es el mayor número de bolsas?",
+                options: ["6 bolsas", "3 bolsas", "12 bolsas", "2 bolsas"],
+                correct: 0,
+                hint: "Necesitas encontrar el máximo común divisor (m.c.d.) de 12 y 18."
+            },
+            {
+                q: "¿Cuál de los siguientes números es un múltiplo común de 2 y 3?",
+                options: ["8", "10", "12", "15"],
+                correct: 2,
+                hint: "Tiene que ser un número par y además divisible por 3."
+            },
+            {
+                q: "Un número que tiene MÁS de dos divisores se llama...",
+                options: ["Número Primo", "Número Compuesto", "Número Impar", "Número Infinito"],
+                correct: 1,
+                hint: "Al contrario que los primos, estos números se pueden descomponer en más factores."
+            },
+            {
+                q: "¿Cuál es el menor múltiplo (distinto de cero) de cualquier número?",
+                options: ["El 0", "El 1", "El propio número", "El número 10"],
+                correct: 2,
+                hint: "Por ejemplo, el primer múltiplo de 7 es 7 x 1 = 7."
+            },
+            {
+                q: "¿Cuál es el m.c.d. de 8 y 12?",
+                options: ["2", "4", "8", "24"],
+                correct: 1,
+                hint: "Divisores de 8: 1,2,4,8. Divisores de 12: 1,2,3,4,6,12."
+            },
+            {
+                q: "Si un número termina en 0 o en cifra par, ¿de qué número es múltiplo siempre?",
+                options: ["Del 5", "Del 3", "Del 2", "Del 9"],
+                correct: 2,
+                hint: "Es el criterio de divisibilidad más famoso."
+            },
+            {
+                q: "¿Cuál de estos números NO es divisor de 20?",
+                options: ["2", "4", "6", "10"],
+                correct: 2,
+                hint: "Comprueba cuál de ellos deja resto distinto de cero al hacer 20 ÷ x."
+            },
+            {
+                q: "Ana va a natación cada 3 días y Juan cada 5 días. Si coinciden hoy, ¿en cuántos días se volverán a ver?",
+                options: ["8 días", "15 días", "30 días", "5 días"],
+                correct: 1,
+                hint: "Busca el menor múltiplo común entre 3 y 5."
+            },
+            {
+                q: "¿Cuál es el m.c.m. de 10 y 15?",
+                options: ["5", "30", "50", "60"],
+                correct: 1,
+                hint: "Múltiplos de 10: 10, 20, 30... Múltiplos de 15: 15, 30..."
+            },
+            {
+                q: "¿Cuál de los siguientes números es COMPUESTO?",
+                options: ["7", "11", "15", "19"],
+                correct: 2,
+                hint: "El 15 se puede dividir entre 1, 3, 5 y 15."
+            },
+            {
+                q: "¿El número 0 es múltiplo de todos los números?",
+                options: ["Sí, porque cualquier número x 0 es 0", "No, solo del 0", "No, el 0 no tiene múltiplos", "Solo de los números pares"],
+                correct: 0,
+                hint: "Cualquier número multiplicado por 0 da siempre 0."
+            },
+            {
+                q: "¿Cuál de los siguientes números es múltiplo de 3?",
+                options: ["14", "21", "25", "32"],
+                correct: 1,
+                hint: "Suma los dígitos de cada número: 2 + 1 = 3 (que es múltiplo de 3)."
+            },
+            {
+                q: "¿Cuál de estos números NO es múltiplo de 7?",
+                options: ["14", "28", "35", "40"],
+                correct: 3,
+                hint: "Repasa la tabla de multiplicar del 7."
+            },
+            {
+                q: "¿Cuál es el menor múltiplo positivo del número 13?",
+                options: ["1", "13", "26", "0"],
+                correct: 1,
+                hint: "El menor múltiplo positivo de cualquier número es el propio número (13 x 1)."
+            },
+            {
+                q: "¿Cuántos múltiplos tiene cualquier número natural (sin contar el 0)?",
+                options: ["Solo 10", "Infinitos", "Depende si es par o impar", "Exactamente 100"],
+                correct: 1,
+                hint: "Como los números naturales no se acaban nunca, podemos seguir multiplicando infinitamente."
+            },
+            {
+                q: "¿Cuál es el múltiplo de 9 que se encuentra entre 40 y 50?",
+                options: ["42", "45", "48", "52"],
+                correct: 1,
+                hint: "Multiplica: 9 x 5 = 45."
+            },
+            {
+                q: "¿Cuál de los siguientes números NO es divisor de 24?",
+                options: ["2", "4", "5", "8"],
+                correct: 2,
+                hint: "24 ÷ 5 = 4 y sobran 4. No es una división exacta."
+            },
+            {
+                q: "¿Cuál es el divisor más grande que tiene el número 50?",
+                options: ["25", "50", "10", "100"],
+                correct: 1,
+                hint: "El divisor más grande de cualquier número siempre es él mismo."
+            },
+            {
+                q: "¿Cuántos divisores tiene el número 7?",
+                options: ["Ninguno", "Solo 1", "Tiene 2 divisores (1 y 7)", "Tiene 4 divisores"],
+                correct: 2,
+                hint: "El 7 es un número primo, por eso solo se puede dividir entre 1 y entre 7."
+            },
+            {
+                q: "¿Cuáles son todos los divisores de 15?",
+                options: ["1, 3, 5, 15", "3, 5", "1, 15", "1, 5, 10, 15"],
+                correct: 0,
+                hint: "Prueba a dividir 15 entre 1, 3, 5 y 15."
+            },
+            {
+                q: "Si al dividir 36 entre un número el resto es 0, decimos que ese número es...",
+                options: ["Un múltiplo de 36", "Un divisor de 36", "Un número primo", "El m.c.m."],
+                correct: 1,
+                hint: "Si la división es exacta (resto 0), es un divisor."
+            },
+            {
+                q: "¿Cuál es el único número par que también es PRIMO?",
+                options: ["El 0", "El 2", "El 4", "El 6"],
+                correct: 1,
+                hint: "Todos los demás números pares son compuestos porque son divisibles por 2."
+            },
+            {
+                q: "¿Se considera el número 1 como un número primo?",
+                options: ["Sí", "No, no es ni primo ni compuesto", "A veces", "Solo en números impares"],
+                correct: 1,
+                hint: "Por convención matemática, los primos deben ser mayores que 1 y tener exactamente 2 divisores."
+            },
+            {
+                q: "¿Cuál de estos números situados entre 20 y 30 es un número PRIMO?",
+                options: ["21", "23", "25", "27"],
+                correct: 1,
+                hint: "El 23 solo se puede dividir entre 1 y 23."
+            },
+            {
+                q: "¿Por qué el número 9 NO es primo?",
+                options: ["Porque es un número impar", "Porque tiene más de dos divisores (1, 3 y 9)", "Porque es múltiplo de 2", "Porque termina en 9"],
+                correct: 1,
+                hint: "Como se puede dividir por 3 de manera exacta, es un número compuesto."
+            },
+            {
+                q: "El número 31 es un número...",
+                options: ["Primo", "Compuesto", "Par", "Múltiplo de 3"],
+                correct: 0,
+                hint: "No aparece en ninguna tabla de multiplicar salvo en 31 x 1."
+            },
+            {
+                q: "¿Cuándo es un número divisible por 2?",
+                options: ["Cuando la suma de sus cifras es 2", "Cuando termina en 0 o en cifra par", "Cuando termina en 2 o 3", "Cuando es impar"],
+                correct: 1,
+                hint: "Los números pares terminan en 0, 2, 4, 6 u 8."
+            },
+            {
+                q: "Un número es divisible por 3 si...",
+                options: ["Termina en 3", "La suma de sus cifras es un múltiplo de 3", "Termina en número par", "Tiene dos dígitos"],
+                correct: 1,
+                hint: "Por ejemplo: 12 → 1 + 2 = 3. ¡Es divisible por 3!"
+            },
+            {
+                q: "Un número es divisible por 5 si...",
+                options: ["Termina en 0 o en 5", "La suma de sus cifras da 5", "Es un número impar", "Termina en 2 o en 4"],
+                correct: 0,
+                hint: "Mira la tabla del 5: 5, 10, 15, 20, 25..."
+            },
+            {
+                q: "¿Es el número 123 divisible por 3?",
+                options: ["Sí, porque 1 + 2 + 3 = 6 (múltiplo de 3)", "No, porque termina en 3", "Solo si fuera un número par", "No, porque es impar"],
+                correct: 0,
+                hint: "Aplica la regla de sumar sus dígitos."
+            },
+            {
+                q: "Un número es divisible por 10 siempre que...",
+                options: ["Termine en cifra 5", "Termine en cifra 0", "La suma de sus cifras sea 10", "Sea menor que 100"],
+                correct: 1,
+                hint: "Todos los múltiplos de 10 acaban en cero."
+            },
+            {
+                q: "¿Cuál de estos números es divisible a la vez por 3 y por 5?",
+                options: ["12", "20", "30", "35"],
+                correct: 2,
+                hint: "Debe terminar en 0 o 5 y la suma de sus dígitos ser múltiplo de 3."
+            },
+            {
+                q: "¿Es el número 450 divisible por 2, 3, 5 y 10 al mismo tiempo?",
+                options: ["Sí, cumple todos los criterios", "No, solo por 5 y 10", "No, solo por 2 y 3", "No es divisible por ninguno"],
+                correct: 0,
+                hint: "Es par (÷2), termina en 0 (÷5 y ÷10) y 4+5+0=9 (÷3)."
+            },
+            {
+                q: "El número 81 es divisible por 9 porque...",
+                options: ["8 + 1 = 9, que es múltiplo de 9", "Termina en 1", "Es un número par", "Es menor que 100"],
+                correct: 0,
+                hint: "La regla del 9 es similar a la del 3: suma de dígitos múltiplo de 9."
+            },
+            {
+                q: "¿Cuál de los siguientes números cumple la regla de divisibilidad del 3?",
+                options: ["14", "25", "42", "53"],
+                correct: 2,
+                hint: "4 + 2 = 6, que es múltiplo de 3."
+            },
+            {
+                q: "¿Cuál es el m.c.m. de 2, 3 y 4?",
+                options: ["12", "24", "6", "8"],
+                correct: 0,
+                hint: "Múltiplos de 2: 2,4,6,8,10,12. Múltiplos de 3: 3,6,9,12. Múltiplos de 4: 4,8,12."
+            },
+            {
+                q: "Si dos números no comparten ningún divisor (salvo el 1), ¿cuál es su m.c.m.?",
+                options: ["Su suma", "Su producto (multiplicarlos entre sí)", "Su resta", "Siempre es 1"],
+                correct: 1,
+                hint: "Por ejemplo, m.c.m. de 3 y 4 es 3 x 4 = 12."
+            },
+            {
+                q: "¿Cuál es el m.c.m. de 5 y 10?",
+                options: ["50", "10", "5", "15"],
+                correct: 1,
+                hint: "Como 10 es múltiplo de 5, el m.c.m. es el propio 10."
+            },
+            {
+                q: "¿Cuál es el m.c.m. de 6 y 8?",
+                options: ["14", "24", "48", "12"],
+                correct: 1,
+                hint: "Múltiplos de 6: 6, 12, 18, 24... Múltiplos de 8: 8, 16, 24..."
+            },
+            {
+                q: "El m.c.m. de dos números siempre es...",
+                options: ["Mayor o igual que el mayor de los números", "Menor que ambos números", "Igual a 1", "Un número impar"],
+                correct: 0,
+                hint: "Los múltiplos no pueden ser más pequeños que los propios números."
+            },
+            {
+                q: "¿Cuál es el m.c.m. de 7 y 3?",
+                options: ["21", "10", "14", "42"],
+                correct: 0,
+                hint: "7 y 3 no tienen divisores comunes, así que 7 x 3 = 21."
+            },
+            {
+                q: "¿Cuál es el m.c.d. de 15 y 25?",
+                options: ["3", "5", "15", "75"],
+                correct: 1,
+                hint: "Divisores de 15: 1, 3, 5, 15. Divisores de 25: 1, 5, 25."
+            },
+            {
+                q: "¿Cuál es el m.c.d. de 20 y 30?",
+                options: ["5", "10", "20", "60"],
+                correct: 1,
+                hint: "Divisores comunes: 1, 2, 5, 10. El mayor es el 10."
+            },
+            {
+                q: "El m.c.d. de dos números primos diferentes siempre es igual a...",
+                options: ["0", "1", "Su producto", "El número más grande"],
+                correct: 1,
+                hint: "Como solo se dividen entre 1 y ellos mismos, el único divisor común es 1."
+            },
+            {
+                q: "¿Cuál es el m.c.d. de 14 y 21?",
+                options: ["3", "7", "14", "42"],
+                correct: 1,
+                hint: "Divisores de 14: 1, 2, 7, 14. Divisores de 21: 1, 3, 7, 21."
+            },
+            {
+                q: "¿Cuál es el m.c.d. de 16 y 24?",
+                options: ["4", "8", "12", "48"],
+                correct: 1,
+                hint: "Divisores comunes: 1, 2, 4, 8. El mayor es el 8."
+            },
+            {
+                q: "Un faro emite un destello cada 8 segundos y otro cada 12 segundos. ¿Cada cuántos segundos coinciden encendidos?",
+                options: ["20 s", "24 s", "96 s", "4 s"],
+                correct: 1,
+                hint: "Calcula el m.c.m. entre 8 y 12."
+            },
+            {
+                q: "Tengo 20 libros de aventuras y 30 de ciencia. ¿Cuál es el máximo número de libros por estante sin mezclar géneros?",
+                options: ["5 libros", "10 libros", "15 libros", "20 libros"],
+                correct: 1,
+                hint: "Calcula el máximo común divisor (m.c.d.) de 20 y 30."
+            },
+            {
+                q: "Marcos tiene listones de 16 cm y 24 cm. Los corta en trozos iguales lo más largos posible. ¿Cuánto mide cada trozo?",
+                options: ["4 cm", "8 cm", "12 cm", "16 cm"],
+                correct: 1,
+                hint: "Busca el mayor divisor común de 16 y 24."
+            },
+            {
+                q: "Un autobús pasa cada 15 min y un tren cada 20 min. Coinciden a las 8:00 h. ¿A qué hora vuelven a coincidir?",
+                options: ["8:35 h", "9:00 h", "8:40 h", "9:20 h"],
+                correct: 1,
+                hint: "El m.c.m. de 15 y 20 es 60 minutos (1 hora)."
+            },
+            {
+                q: "Lucía tiene 30 piruletas y 45 pegatinas. ¿Cuál es la mayor cantidad de bolsas iguales que puede hacer repartiendo todo?",
+                options: ["5 bolsas", "15 bolsas", "10 bolsas", "30 bolsas"],
+                correct: 1,
+                hint: "El máximo común divisor (m.c.d.) de 30 y 45 es 15."
+            }
+        ];
+
+        function shuffle(array) {
+            return [...array].sort(() => Math.random() - 0.5);
+        }
+
+        function setIcon(btn, iconName, colorClass) {
+            const iconBox = btn.querySelector('.icon-box');
+            if (iconBox) {
+                iconBox.innerHTML = `<i data-lucide="${iconName}" class="w-5 h-5 ${colorClass}"></i>`;
+                lucide.createIcons();
+            }
+        }
+
+        function initQuiz() {
+            questions = shuffle(questionPool).slice(0, 10);
+            currentQuizIndex = 0;
+            score = 0;
+            correctAnswersCount = 0;
+            document.getElementById('quiz-card').classList.remove('hidden');
+            document.getElementById('quiz-summary').classList.add('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const qData = questions[currentQuizIndex];
+            document.getElementById('quiz-current').innerText = currentQuizIndex + 1;
+            document.getElementById('quiz-question').innerText = qData.q;
+            document.getElementById('quiz-hint').innerText = qData.hint;
+
+            const optsDiv = document.getElementById('quiz-options');
+            optsDiv.innerHTML = '';
+
+            const feedbackDiv = document.getElementById('quiz-feedback');
+            feedbackDiv.classList.add('hidden');
+            document.getElementById('quiz-next-btn').classList.add('hidden');
+
+            qData.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full p-4 text-left font-bold border-2 border-indigo-100 rounded-2xl hover:bg-indigo-50 hover:border-indigo-300 transition text-slate-700 shadow-sm flex items-center justify-between";
+                btn.innerHTML = `<span>${opt}</span> <span class="icon-box"><i data-lucide="circle" class="w-5 h-5 text-indigo-300"></i></span>`;
+                btn.onclick = () => checkAnswer(idx, btn);
+                optsDiv.appendChild(btn);
+            });
+
+            lucide.createIcons();
+        }
+
+        function checkAnswer(selectedIdx, btnElement) {
+            const qData = questions[currentQuizIndex];
+            const optsDiv = document.getElementById('quiz-options');
+            const buttons = optsDiv.querySelectorAll('button');
+
+            // Disable all buttons after choice
+            buttons.forEach(b => b.disabled = true);
+
+            const feedbackDiv = document.getElementById('quiz-feedback');
+            feedbackDiv.classList.remove('hidden');
+
+            if (selectedIdx === qData.correct) {
+                score += 10;
+                correctAnswersCount += 1;
+                document.getElementById('total-score').innerText = score;
+                btnElement.className = "w-full p-4 text-left font-bold border-2 border-emerald-400 bg-emerald-50 text-emerald-900 rounded-2xl flex items-center justify-between";
+                setIcon(btnElement, 'check-circle', 'text-emerald-500');
+
+                feedbackDiv.className = "p-4 rounded-2xl text-center font-bold bg-emerald-100 text-emerald-800 border border-emerald-300";
+                feedbackDiv.innerText = "¡Excelente! ¡Respuesta Correcta! 🎉";
+            } else {
+                btnElement.className = "w-full p-4 text-left font-bold border-2 border-rose-400 bg-rose-50 text-rose-900 rounded-2xl flex items-center justify-between";
+                setIcon(btnElement, 'x-circle', 'text-rose-500');
+
+                // Highlight correct one
+                const correctBtn = buttons[qData.correct];
+                correctBtn.className = "w-full p-4 text-left font-bold border-2 border-emerald-400 bg-emerald-50 text-emerald-900 rounded-2xl flex items-center justify-between";
+                setIcon(correctBtn, 'check-circle', 'text-emerald-500');
+
+                feedbackDiv.className = "p-4 rounded-2xl text-center font-bold bg-rose-100 text-rose-800 border border-rose-300";
+                feedbackDiv.innerText = "¡Casi! Revisa la pista y la respuesta correcta resaltada.";
+            }
+
+            document.getElementById('quiz-next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuizIndex++;
+            if (currentQuizIndex < questions.length) {
+                showQuestion();
+            } else {
+                showSummary();
+            }
+        }
+
+        function showSummary() {
+            document.getElementById('quiz-card').classList.add('hidden');
+            const summaryDiv = document.getElementById('quiz-summary');
+            summaryDiv.classList.remove('hidden');
+
+            document.getElementById('final-score').innerText = correctAnswersCount;
+
+            const msgEl = document.getElementById('final-message');
+            if (correctAnswersCount === 10) {
+                msgEl.innerText = "¡Increíble! 10 de 10. ¡Eres un auténtico/a maestro/a de los Múltiplos y Divisores! 🌟🏆";
+            } else if (correctAnswersCount >= 7) {
+                msgEl.innerText = "¡Gran trabajo! Has demostrado dominar muy bien los conceptos clave. ¡Sigue así!";
+            } else if (correctAnswersCount >= 5) {
+                msgEl.innerText = "¡Buen intento! Has aprobado el reto. Si repasas un poco las calculadoras, ¡conseguirás la máxima nota!";
+            } else {
+                msgEl.innerText = "¡Ánimo! Te recomendamos volver a repasar las pestañas de m.c.m. y m.c.d. e intentarlo de nuevo.";
+            }
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            calculateMultiples();
+            calculateDivisors();
+            checkDivisibilityRules();
+            calculateMCM();
+            calculateMCD();
+            initQuiz();
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
